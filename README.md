@@ -1,10 +1,10 @@
-<div align="center">
+ <div align="center">
 
 # 🎮 Destruct
 
-**Game Engine 2D & IDE Visual no Navegador (100% Client-Side)**
+**2D Game Engine & Visual IDE in the Browser (100% Client-Side)**
 
-*Crie jogos 2D completos com Event Sheets, Tilemaps, Física, Shaders, Áudio 8-bit, Importação de Construct 3 (`.c3p`) e Exportação para HTML Único — sem backend.*
+*Create complete 2D games with Event Sheets, Tilemaps, Physics, Shaders, 8-bit Audio, Construct 3 (.c3p) Import, and Single-File HTML Export — no backend required.*
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -16,72 +16,77 @@
 
 ---
 
-## ✨ Visão Geral
+## ✨ Overview
 
-O **Destruct** é uma game engine 2D completa inspirada na arquitetura de **Layouts + Event Sheets + Behaviors** do Construct 3. Toda a IDE e o runtime rodam inteiramente no navegador: sem servidor, sem `eval()` ou `new Function()`, com auto-save em `localStorage`, exportação para arquivo `.html` standalone e importação direta de projetos do Construct 3.
+**Destruct** is a complete 2D game engine inspired by Construct 3's **Layouts + Event Sheets + Behaviors** architecture. Both the IDE and runtime run entirely in the browser: no server, no `eval()` or `new Function()`, with automatic saving via `localStorage`, standalone `.html` file export, and direct Construct 3 project import.
 
 ---
 
-## 🚀 Principais Recursos
+## 🚀 Key Features
 
-### 🧠 Motor & Sistema de Eventos (`src/engine/`)
-- **Runtime 60 FPS desacoplado:** Canvas 2D + pipeline de pós-processamento WebGL (`PostProcessPipeline`) independente da UI React.
-- **Sistema real de Picking (SOL):** Seleção de instâncias propagada por condições, sub-eventos, blocos **AND / OR**, **Else**, **Invert** e **Trigger once while true**.
-- **Parser seguro de Expressões:** Tokenizador e AST recursiva próprios (zero `eval`), com suporte a variáveis globais, variáveis de instância, expressões de objetos/behaviors (`Obj.X`, `Obj.Platform.VectorY`), operadores ternários e funções matemáticas (`random`, `choose`, `distance`, `angle`, `clamp`, `lerp`).
-- **Event Sheets avançadas:** Suporte a **Groups** ativáveis/desativáveis, **Includes**, loops (`Repeat`, `For each`), ações assíncronas com `Wait` preservando picking e triggers (`On start of layout`, `On collision`, `On timer`, `On tween finished`, etc.).
+### 🧠 Engine & Event System (`src/engine/`)
 
-### 🧩 Plugins & Controles
-| Categoria | Plugins Disponíveis |
+- **Decoupled 60 FPS Runtime:** Canvas 2D + WebGL post-processing pipeline (`PostProcessPipeline`), independent of the React UI.
+- **Real Picking System (SOL):** Instance selection propagated through conditions, sub-events, **AND / OR** blocks, **Else**, **Invert**, and **Trigger once while true**.
+- **Safe Expression Parser:** Custom tokenizer and recursive AST (zero `eval`), supporting global variables, instance variables, object/behavior expressions (`Obj.X`, `Obj.Platform.VectorY`), ternary operators, and mathematical functions (`random`, `choose`, `distance`, `angle`, `clamp`, `lerp`).
+- **Advanced Event Sheets:** Support for enableable/disableable **Groups**, **Includes**, loops (`Repeat`, `For each`), asynchronous actions with `Wait` while preserving picking, and triggers (`On start of layout`, `On collision`, `On timer`, `On tween finished`, etc.).
+
+### 🧩 Plugins & Controls
+
+| Category | Available Plugins |
 | :--- | :--- |
-| **Visuais & Mapa** | `Sprite` (múltiplas animações, FPS, loop, ping-pong, origin, polígonos de colisão), `TiledBackground`, `Tilemap`, `Text` (com BBCode `[b]`, `[i]`, `[color=]`), `Particles` |
+| **Visuals & Maps** | `Sprite` (multiple animations, FPS, looping, ping-pong, origin, collision polygons), `TiledBackground`, `Tilemap`, `Text` (with BBCode `[b]`, `[i]`, `[color=]`), `Particles` |
 | **Interface (GUI)** | `Button`, `Slider`, `ProgressBar` |
-| **Entrada & Sistema** | `System`, `Keyboard`, `Mouse`, `Touch`, `Gamepad`, `VirtualJoystick` (analógico + botões A/B na tela) |
-| **Áudio & Dados** | `Audio` (Web Audio API com controle por tag e dB), `LocalStorage` (assíncrono com triggers), `Dictionary` |
+| **Input & System** | `System`, `Keyboard`, `Mouse`, `Touch`, `Gamepad`, `VirtualJoystick` (analog controls + on-screen A/B buttons) |
+| **Audio & Data** | `Audio` (Web Audio API with tag-based and dB volume control), `LocalStorage` (asynchronous with triggers), `Dictionary` |
 
-### ⚙️ 21 Behaviors Integrados
-- **Movimento & Física:** `Platform` (com double jump, jump sustain e `JumpThru`), `EightDirection`, `Bullet`, `Physics` (corpo rígido, impulso, força, atrito, restituição e distance joints), `Pathfinding` (grid A* configurável desviando de `Solid`), `Rotate`, `Sine`.
-- **Combate & Interação:** `Turret` (com mira preditiva), `LineOfSight` (alcance e cone de visão contra `Solid`), `DragDrop`, `Pin`, `Tween` (1 ou 2 propriedades e value tween com easings, loop e ping-pong).
-- **Atributos & Utilidades:** `Solid`, `JumpThru`, `Fade`, `Flash`, `Timer`, `ScrollTo` (com screen shake), `BoundTo`, `DestroyOutside`, `Wrap`.
+### ⚙️ 21 Integrated Behaviors
 
-### 🛠️ Ferramentas Integradas na IDE (`src/editor/`)
-- **Layout View:** Edição visual com zoom/pan, snapping, camadas com `parallaxX/Y`, opacidade, lock, visibilidade e Z-order.
-- **Tilemap Painter:** Pintura direta no canvas, borracha e configuração de colisão `Solid` por índice de tile.
-- **Sprite Editor:** Editor pixel-art integrado com múltiplas animações, frames, FPS, espelhamento e ponto de origem.
-- **SFX Studio (8-bit):** Sintetizador procedural Web Audio (`coin`, `jump`, `hit`, `explosion`, `laser`, `powerup`, `win`, `click`, `bounce`) com geração de assets `.wav` em DataURL.
-- **Live Debugger no Preview:** Pause, avanço frame a frame (*Step*), inspeção ao vivo de variáveis globais, instâncias/UIDs e toggles em tempo real de shaders (**Bloom**, **CRT Scanlines**, **Vignette**, **Chromatic Aberration**).
+- **Movement & Physics:** `Platform` (with double jump, jump sustain, and `JumpThru`), `EightDirection`, `Bullet`, `Physics` (rigid bodies, impulses, forces, friction, restitution, and distance joints), `Pathfinding` (configurable A* grid pathfinding around `Solid` objects), `Rotate`, `Sine`.
+- **Combat & Interaction:** `Turret` (with predictive aiming), `LineOfSight` (range and vision cone against `Solid` objects), `DragDrop`, `Pin`, `Tween` (1 or 2 properties and value tweening with easing functions, looping, and ping-pong).
+- **Attributes & Utilities:** `Solid`, `JumpThru`, `Fade`, `Flash`, `Timer`, `ScrollTo` (with screen shake), `BoundTo`, `DestroyOutside`, `Wrap`.
 
-### 📦 Importação & Exportação
-- **Importar do Construct 3 (`Import C3` / `Load`):** Importação direta 100% no navegador de arquivos **`.c3p`**, manifestos **`.c3proj`** ou **pastas descompactadas**, convertendo objetos, animações, tilemaps (incluindo compressão RLE), famílias, behaviors, variáveis globais, áudios e event sheets com relatório de compatibilidade.
-- **Exportar HTML Único (`Export HTML`):** Empacota todo o projeto + runtime em um único arquivo `.html` pronto para jogar offline ou hospedar em qualquer site estático.
-- **Salvar / Carregar JSON:** Serialização completa do projeto em `.destruct.json`.
+### 🛠️ Built-in IDE Tools (`src/editor/`)
+
+- **Layout View:** Visual editing with zoom/pan, snapping, layers with `parallaxX/Y`, opacity, locking, visibility, and Z-order.
+- **Tilemap Painter:** Direct canvas painting, erasing, and `Solid` collision configuration by tile index.
+- **Sprite Editor:** Integrated pixel-art editor with multiple animations, frames, FPS, flipping, and origin point controls.
+- **SFX Studio (8-bit):** Procedural Web Audio synthesizer (`coin`, `jump`, `hit`, `explosion`, `laser`, `powerup`, `win`, `click`, `bounce`) with `.wav` asset generation as DataURLs.
+- **Live Preview Debugger:** Pause, frame-by-frame stepping (*Step*), live inspection of global variables, instances/UIDs, and real-time shader toggles (**Bloom**, **CRT Scanlines**, **Vignette**, **Chromatic Aberration**).
+
+### 📦 Import & Export
+
+- **Import from Construct 3 (`Import C3` / `Load`):** Fully browser-based import of **`.c3p`** files, **`.c3proj`** manifests, or **unpacked project folders**, converting objects, animations, tilemaps (including RLE compression), families, behaviors, global variables, audio, and event sheets, with a compatibility report.
+- **Single-File HTML Export (`Export HTML`):** Packages the entire project and runtime into a single `.html` file, ready to play offline or host on any static website.
+- **Save / Load JSON:** Complete project serialization into `.destruct.json` files.
 
 ---
 
-## 🏗️ Arquitetura do Projeto
+## 🏗️ Project Architecture
 
 ```text
 src/
-├── engine/                 # Runtime 2D puro em TypeScript (sem React/UI)
-│   ├── runtime.ts          # Loop principal, SOL picking, triggers, renderização
-│   ├── behaviors.ts        # Lógica dos 21 behaviors
-│   ├── physics.ts          # Simulação de corpo rígido 2D e joints
-│   ├── collision.ts        # AABB, polígonos (SAT) e tilemaps
-│   ├── tilemap.ts          # Gerador de tileset e colisões de grid
-│   ├── expressionParser.ts # Tokenizer & AST segura (zero eval)
-│   ├── audio.ts & sfxSynth.ts # Web Audio API + sintetizador 8-bit
-│   ├── shaders.ts          # Pós-processamento WebGL (CRT, Bloom, Vignette...)
-│   ├── catalog.ts          # Esquemas de plugins, behaviors, condições e ações
-│   ├── c3Importer.ts       # Importador direto de Construct 3 (.c3p/.c3proj)
-│   ├── exporter.ts         # Gerador de HTML único standalone
-│   └── demoProject.ts      # Sandbox de demonstração + projeto em branco
+├── engine/                 # Pure TypeScript 2D runtime (no React/UI)
+│   ├── runtime.ts          # Main loop, SOL picking, triggers, rendering
+│   ├── behaviors.ts        # Logic for the 21 behaviors
+│   ├── physics.ts          # 2D rigid body and joint simulation
+│   ├── collision.ts        # AABB, polygons (SAT), and tilemaps
+│   ├── tilemap.ts          # Tileset generator and grid collisions
+│   ├── expressionParser.ts # Safe tokenizer & AST (zero eval)
+│   ├── audio.ts & sfxSynth.ts # Web Audio API + 8-bit synthesizer
+│   ├── shaders.ts          # WebGL post-processing (CRT, Bloom, Vignette...)
+│   ├── catalog.ts          # Plugin, behavior, condition, and action schemas
+│   ├── c3Importer.ts       # Direct Construct 3 importer (.c3p/.c3proj)
+│   ├── exporter.ts         # Standalone single-file HTML generator
+│   └── demoProject.ts      # Demo sandbox + blank project
 │
-└── editor/                 # Interface da IDE em React + Tailwind CSS
-    ├── LayoutView.tsx      # Editor visual de layouts, layers e instâncias
-    ├── EventSheetView.tsx  # Editor estruturado de eventos, grupos e sub-eventos
-    ├── ProjectSidebar.tsx  # Árvore do projeto, layers e object types
-    ├── PropertiesBar.tsx   # Inspetor de propriedades, variáveis e behaviors
-    ├── PreviewModal.tsx    # Janela de Preview + Live Debugger + Shaders
-    ├── TilemapPainter.tsx  # Paleta flutuante de pintura de tilemaps
+└── editor/                 # React + Tailwind CSS IDE interface
+    ├── LayoutView.tsx      # Visual editor for layouts, layers, and instances
+    ├── EventSheetView.tsx  # Structured editor for events, groups, and sub-events
+    ├── ProjectSidebar.tsx  # Project tree, layers, and object types
+    ├── PropertiesBar.tsx   # Property, variable, and behavior inspector
+    ├── PreviewModal.tsx    # Preview window + Live Debugger + Shaders
+    ├── TilemapPainter.tsx  # Floating tilemap painting palette
     ├── SpriteEditorModal.tsx
     ├── SfxStudioModal.tsx
     ├── ImportC3Modal.tsx
@@ -90,44 +95,47 @@ src/
 
 ---
 
-## 💻 Como Rodar Localmente
+## 💻 Running Locally
 
-### Pré-requisitos
-- **Node.js** 18+ (ou compatível com Vite 8)
+### Requirements
 
-### Instalação e Execução
+- **Node.js** 18+ (or a version compatible with Vite 8)
+
+### Installation & Execution
 
 ```bash
-# 1. Instale as dependências
+# 1. Install dependencies
 npm install
 
-# 2. Inicie o servidor de desenvolvimento (porta 3000)
+# 2. Start the development server (port 3000)
 npm run dev
 ```
 
-Acesse `http://localhost:3000` no navegador.
+Open `http://localhost:3000` in your browser.
 
-### Outros Comandos
+### Other Commands
 
 ```bash
-# Verificar tipos TypeScript
+# Check TypeScript types
 npm run lint
 
-# Gerar build estático de produção (pasta dist/)
+# Generate a static production build (dist/ folder)
 npm run build
 
-# Visualizar build de produção localmente
+# Preview the production build locally
 npm run preview
 ```
 
 ---
 
-## 🌐 Deploy Estático
+## 🌐 Static Deployment
 
-Como o **Destruct** é 100% client-side, basta rodar `npm run build` e publicar a pasta `dist/` em qualquer provedor estático (**Netlify**, **Vercel**, **GitHub Pages**, **Cloudflare Pages**).
+Since **Destruct** is 100% client-side, simply run `npm run build` and deploy the `dist/` folder to any static hosting provider (**Netlify**, **Vercel**, **GitHub Pages**, **Cloudflare Pages**).
 
 ---
 
 <div align="center">
-  Feito para criar jogos 2D direto no navegador ⚡
+
+Made for creating 2D games directly in your browser ⚡
+
 </div>
