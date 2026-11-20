@@ -1,0 +1,6 @@
+{
+  "name": "OpenConstruct",
+  "description": "100% client-side 2D visual game engine and Event Sheet IDE inspired by Construct 3, with 15 behaviors, pixel-art sprite editor, live 60fps preview, and single-file HTML export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
